@@ -1,7 +1,7 @@
 sitedownloader:
   baseUrl: https://tretton37.com
   timeout: 1000
-  forkPoolThreshold: 100
+  forkPoolThreshold: 1000
   baseDir: out/
 spring:
   main:
