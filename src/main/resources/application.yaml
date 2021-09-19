@@ -1,0 +1,8 @@
+sitedownloader:
+  baseUrl: https://tretton37.com
+  maxDepth: 50
+  timeout: 1000
+  forkPoolThreshold: 100
+spring:
+  main:
+    web-application-type: NONE
