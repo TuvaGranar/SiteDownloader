@@ -26,12 +26,13 @@ public class SiteDownloaderRecursiveTask extends RecursiveAction {
     private HttpService httpService;
     private String baseDir = "out/";
 
-    public SiteDownloaderRecursiveTask(String url, VisitedSites visited, HttpService httpService, String baseUrl, int threshold) {
+    public SiteDownloaderRecursiveTask(String url, VisitedSites visited, HttpService httpService, String baseUrl, int threshold, String baseDir) {
         this.threshold = threshold;
         this.url = url;
         this.visited = visited;
         this.httpService = httpService;
         this.baseUrl = baseUrl;
+        this.baseDir = baseDir;
     }
 
     /**
@@ -66,7 +67,7 @@ public class SiteDownloaderRecursiveTask extends RecursiveAction {
                 // Add a new subtask for the links, unless they have already been visited
                 if (!visited.getVisited().contains(link)) {
                     visited.visit(link);
-                    subtasks.add(new SiteDownloaderRecursiveTask(link, visited, httpService, baseUrl, threshold));
+                    subtasks.add(new SiteDownloaderRecursiveTask(link, visited, httpService, baseUrl, threshold, baseDir));
                 }
             });
             // Invoke all subtasks
@@ -79,7 +80,7 @@ public class SiteDownloaderRecursiveTask extends RecursiveAction {
      *
      * @param page - The page to save
      */
-    private void createFile(String page) {
+    protected void createFile(String page) {
         String dirName = baseDir + url;
         String fileName = dirName.substring(dirName.lastIndexOf("/") + 1) + ".html";
         dirName = dirName.substring(0, dirName.lastIndexOf("/"));
@@ -107,7 +108,7 @@ public class SiteDownloaderRecursiveTask extends RecursiveAction {
      * @param currentUrl - Url to the current page
      * @return
      */
-    private List getLinksFromHtml(String html, String currentUrl) {
+    protected List getLinksFromHtml(String html, String currentUrl) {
         Document doc = Jsoup.parse(html);
         Elements elements = doc.select("a[href]").select("a[href^=/]");
 

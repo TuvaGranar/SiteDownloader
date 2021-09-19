@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 
     private String baseUrl;
-    private int maxDepth;
     private int timeout;
     private int forkPoolThreshold;
+    private String baseDir;
 }

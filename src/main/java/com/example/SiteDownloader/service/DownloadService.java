@@ -30,7 +30,7 @@ public class DownloadService {
 //        recursiveFetchPages(baseUrl);
 
         new ForkJoinPool().invoke(
-                new SiteDownloaderRecursiveTask(baseUrl, visited, httpService, baseUrl, appConfig.getForkPoolThreshold()));
+                new SiteDownloaderRecursiveTask(baseUrl, visited, httpService, baseUrl, appConfig.getForkPoolThreshold(), appConfig.getBaseDir()));
 
         System.out.println("Download finished");
         System.out.println("Number of visited pages: " + visited.getVisited().size());

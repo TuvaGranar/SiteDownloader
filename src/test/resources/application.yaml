@@ -1,8 +1,8 @@
 sitedownloader:
-  baseUrl: https://tretton37.com
+  baseUrl: /testpagewithlinks
   timeout: 1000
-  forkPoolThreshold: 100
-  baseDir: out/
+  forkPoolThreshold: 10
+  baseDir: src/test/out/
 spring:
   main:
     web-application-type: NONE
