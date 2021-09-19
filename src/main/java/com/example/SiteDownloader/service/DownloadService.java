@@ -28,8 +28,6 @@ public class DownloadService {
         visited = new VisitedSites();
         visited.visit(baseUrl);
 
-//        recursiveFetchPages(baseUrl);
-
         new ForkJoinPool().invoke(
                 new SiteDownloaderRecursiveTask(baseUrl, visited, httpService, baseUrl, appConfig.getForkPoolThreshold(), appConfig.getBaseDir()));
 
@@ -39,46 +37,4 @@ public class DownloadService {
         System.out.println("Download finished, took " + duration + "ms");
         System.out.println("Number of visited pages: " + visited.getVisited().size());
     }
-
-//    private void recursiveFetchPages(String url) {
-//        if (depth > appConfig.getMaxDepth()) {
-//            System.out.println("Maximum recursion depth exceeded.");
-//            return;
-//        }
-//        depth++;
-//        System.out.println("Fetching link from: " + url);
-//        String mainPage = httpService.fetchWebPage(url);
-//        visited.visit(url);
-//
-//        List<String> links = getLinksFromHtml(mainPage, url);
-//
-//        links.forEach(link -> {
-//            if (!visited.getVisited().contains(link)) {
-//                recursiveFetchPages(link);
-//            }
-//        });
-//    }
-//
-//    private List getLinksFromHtml(String html, String currentUrl) {
-//        Document doc = Jsoup.parse(html);
-//        Elements elements = doc.select("a[href]").select("a[href^=/]");
-//
-//        List<String> matches = elements.eachAttr("href");
-//
-//        List<String> links = new ArrayList<>();
-//
-//        matches.forEach(match -> {
-//            // Remove anchors
-//            if (match.indexOf("#") != -1) {
-//                match = match.substring(0, match.indexOf("#"));
-//            }
-//            String link = baseUrl + match;
-//            // Remove duplicates and base url
-//            if (link != baseUrl && link != baseUrl + "/" && link != currentUrl && !links.contains(link)) {
-//                links.add(link);
-//            }
-//        });
-//
-//        return links;
-//    }
 }
