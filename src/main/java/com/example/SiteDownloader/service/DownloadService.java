@@ -24,6 +24,7 @@ public class DownloadService {
      */
     public void traverseWebPage() {
         System.out.println("Starting download..");
+        long startTime = System.currentTimeMillis();
         visited = new VisitedSites();
         visited.visit(baseUrl);
 
@@ -32,7 +33,10 @@ public class DownloadService {
         new ForkJoinPool().invoke(
                 new SiteDownloaderRecursiveTask(baseUrl, visited, httpService, baseUrl, appConfig.getForkPoolThreshold(), appConfig.getBaseDir()));
 
-        System.out.println("Download finished");
+
+        long endTime = System.currentTimeMillis();
+        long duration = endTime-startTime;
+        System.out.println("Download finished, took " + duration + "ms");
         System.out.println("Number of visited pages: " + visited.getVisited().size());
     }
 
